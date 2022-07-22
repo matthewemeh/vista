@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- For development -->
+    <!-- <link rel="stylesheet" href="../src/main.css" /> -->
+
+    <!-- For production -->
+    <link rel="stylesheet" href="dist.css" />
+    <title>Vista</title>
+    <script>
+      setTimeout(() => {
+        window.location.pathname = './home.html';
+      }, 5000);
+    </script>
+  </head>
+  <!-- This is the loading page user sees at root url i.e 'https://vista.domain-name/', after which the user is redirected to the home.html(after 5s) -->
+  <body>
+    <img
+      src="./assets/svg/vista-logo.svg"
+      class="w-[224px] h-[73px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+    />
+  </body>
+</html>

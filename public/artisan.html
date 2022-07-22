@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  class="scroll-smooth m-0 p-0 border-0 outline-0 cursor-default list-none no-underline box-border"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- For development -->
+    <!-- <link rel="stylesheet" href="../src/main.css" /> -->
+
+    <!-- For production -->
+    <link rel="stylesheet" href="dist.css" />
+    <title>Vista - Artisan Details</title>
+  </head>
+  <body class="artisan font-poppins text-black font-semibold text-[18px] leading-[27px] mt-8 mb-20">
+    <header class="flex items-center justify-between mb-4 mx-[50px]">
+      <img src="./assets/svg/vista-logo.svg" class="w-[132px] h-[43px]" />
+      <a id="user" href="./call-logs.html">
+        <img src="./assets/svg/user.svg" class="w-10 h-10" />
+      </a>
+    </header>
+
+    <h1 class="text-[60px] leading-[90px] text-center mb-16">Hire Me</h1>
+
+    <section
+      class="mx-16 p-11 font-circular-std font-medium border-[1px] border-black border-solid"
+    >
+      <div class="fore-details grid grid-cols-[346px_50%_1fr_1fr] mb-14">
+        <div id="artisan-image" class="w-[346px] h-[346px] rounded-full bg-alto mr-16"></div>
+
+        <div class="personal-details mt-14 ml-16">
+          <p id="name" class="text-[44px] leading-[56px]">James Charles</p>
+          <p id="job" class="text-[36px] leading-[46px] text-gray mt-2 mb-5">Plumber</p>
+          <img src="./assets/svg/stars.svg" />
+        </div>
+
+        <a id="call" href="./call-logs.html" class="mt-14">
+          <img src="./assets/svg/call.svg" class="w-11 h-11 ml-auto" />
+        </a>
+
+        <a id="add" href="#" class="mt-14">
+          <img src="./assets/svg/add.svg" class="w-11 h-11 ml-auto" />
+        </a>
+      </div>
+
+      <div class="job-details text-[24px] leading-7 font-bold flex flex-col gap-y-2">
+        <p id="pay">$10/hr</p>
+        <p>Job Description</p>
+        <p id="description" class="font-normal text-[18px] leading-6">
+          A Plumber, or Plumbing Maintenance Technician, is a skilled tradesperson in charge of
+          installing, inspecting and repairing pipes and plumbing systems to make sure all of a
+          building's fixtures operate correctly. Their duties include finding the source of leaks
+          and blockages, fixing or replacing broken parts and testing the plumbing system.
+        </p>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  class="scroll-smooth m-0 p-0 border-0 outline-0 cursor-default list-none no-underline box-border"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- For development -->
+    <!-- <link rel="stylesheet" href="../src/main.css" /> -->
+
+    <!-- For production -->
+    <link rel="stylesheet" href="dist.css" />
+    <title>Vista - Sign Up</title>
+
+    <script>
+      const togglePassword = () => {
+        const pwdInput = document.querySelector('#password');
+        pwdInput.type = pwdInput.type === 'password' ? 'text' : 'password';
+      };
+
+      const toggleSignUp = e => {
+        // reset buttons' styles...
+        const artisanIndicator = document.querySelector('#artisan-indicator');
+        const customerIndicator = document.querySelector('#customer-indicator');
+        const createButton = document.querySelector('#create');
+        const jobInput = document.querySelector('#job-field');
+
+        artisanIndicator.disabled = false;
+        artisanIndicator.style.color = '#939393';
+        artisanIndicator.style.background = 'transparent';
+
+        customerIndicator.disabled = false;
+        customerIndicator.style.color = '#939393';
+        customerIndicator.style.background = 'transparent';
+
+        // ...then updated styles of clicked button...
+        e.target.disabled = true;
+        e.target.style.color = 'white';
+        e.target.style.background = '#0ce6f3';
+
+        // ...update url and "create account" button's href...
+        let url = new URL(window.location.href);
+        let search_params = url.searchParams;
+
+        if (e.target.id === 'customer-indicator') {
+          search_params.set('type', 'customer');
+          url.search = search_params.toString();
+          window.location.href = url.toString();
+
+          createButton.setAttribute('href', './call-logs.html');
+        } else if (e.target.id === 'artisan-indicator') {
+          search_params.set('type', 'artisan');
+          url.search = search_params.toString();
+          window.location.href = url.toString();
+
+          createButton.setAttribute('href', './my-details.html');
+        }
+
+        // ...finally, hide or show job dropdown menu
+        jobInput.classList.toggle('hidden');
+        jobInput.classList.toggle('flex');
+      };
+
+      window.onload = () => {
+        // customize the sign-up page based on 'type' url parameter
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const type = urlParams.get('type');
+
+        const artisanIndicator = document.querySelector('#artisan-indicator');
+        const customerIndicator = document.querySelector('#customer-indicator');
+        const jobInput = document.querySelector('#job-field');
+        const createButton = document.querySelector('#create');
+
+        if (type === 'artisan') {
+          customerIndicator.disabled = false;
+          customerIndicator.style.color = '#939393';
+          customerIndicator.style.background = 'transparent';
+
+          artisanIndicator.disabled = true;
+          artisanIndicator.style.color = 'white';
+          artisanIndicator.style.background = '#0ce6f3';
+
+          jobInput.classList.toggle('hidden');
+          jobInput.classList.toggle('flex');
+
+          createButton.setAttribute('href', './my-details.html');
+        } else if (type === 'customer') {
+          artisanIndicator.disabled = false;
+          artisanIndicator.style.color = '#939393';
+          artisanIndicator.style.background = 'transparent';
+
+          customerIndicator.disabled = true;
+          customerIndicator.style.color = 'white';
+          customerIndicator.style.background = '#0ce6f3';
+
+          createButton.setAttribute('href', './call-logs.html');
+        }
+      };
+    </script>
+  </head>
+  <body
+    class="sign-up font-poppins text-black font-medium text-[18px] leading-[27px] mx-[50px] mt-20 mb-10"
+  >
+    <header class="mb-7">
+      <h1 class="font-semibold text-[40px] leading-[60px] text-center mb-7">Create an account</h1>
+      <div class="flex items-center justify-between w-[343px] h-[50px] mx-auto overflow-y-hidden">
+        <button
+          id="customer-indicator"
+          onclick="toggleSignUp(event)"
+          disabled
+          class="customer-indicator bg-turquoise text-white w-[128px] h-full rounded-md flex items-center justify-center"
+        >
+          Hire Artisan
+        </button>
+
+        <hr class="text-gray w-14 rotate-90" />
+
+        <button
+          id="artisan-indicator"
+          onclick="toggleSignUp(event)"
+          class="artisan-indicator bg-transparent text-gray w-[128px] h-full rounded-md flex items-center justify-center"
+        >
+          Artisan
+        </button>
+      </div>
+    </header>
+
+    <form class="placeholder:text-gray w-[519px] mx-auto flex flex-col gap-y-5">
+      <div class="field-group grid grid-rows-[1rem_4rem] grid-flow-col gap-x-3 gap-y-4">
+        <label class="block" for="first-name">First name</label>
+        <input
+          required
+          type="text"
+          name="first-name"
+          id="first-name"
+          autocapitalize="on"
+          pattern=".{2,}"
+          placeholder="James"
+          class="block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
+        />
+        <label class="block" for="last-name">Last name</label>
+        <input
+          required
+          type="text"
+          name="last-name"
+          id="last-name"
+          autocapitalize="on"
+          pattern=".{2,}"
+          placeholder="White"
+          class="block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
+        />
+      </div>
+
+      <div class="input-group flex flex-col gap-y-2">
+        <label class="block" for="phone-number">Phone number</label>
+        <input
+          required
+          type="tel"
+          name="phone-number"
+          id="phone-number"
+          placeholder="+234 81012471290"
+          class="block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
+        />
+      </div>
+
+      <div class="input-group flex gap-x-3">
+        <div class="sub-input-group flex flex-col gap-y-2 w-full">
+          <label class="block" for="email">Email</label>
+          <input
+            required
+            type="email"
+            name="email"
+            id="email"
+            pattern="[^@]+@[^\.]+\..+"
+            placeholder="Jameswhite@gmail.com"
+            class="block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
+          />
+        </div>
+
+        <div id="job-field" class="sub-input-group hidden flex-col gap-y-2 w-[43%]">
+          <label class="block" for="job">Job</label>
+          <div
+            class="block text-[16px] leading-6 py-4 px-2 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
+          >
+            <select name="job" id="job" class="w-full outline-none">
+              <option value="Artisan">Artisan</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group flex flex-col gap-y-2">
+        <label class="block" for="password">Password</label>
+        <input
+          required
+          type="password"
+          name="password"
+          id="password"
+          pattern=".{8,}"
+          placeholder="Minimum 8 characters"
+          class="w-full block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
+        />
+        <img
+          src="./assets/svg/eye.svg"
+          class="w-5 h-5 relative left-[92%] bottom-12 cursor-pointer"
+          onclick="togglePassword()"
+        />
+      </div>
+
+      <div class="flex flex-col gap-y-4 text-gray text-[15px] leading-5 font-normal">
+        <p>
+          You agree to our <a href="#" target="_blank" class="text-turquoise">Terms</a> and
+          <a href="#" target="_blank" class="text-turquoise">Privacy Policy</a> by clicking create
+          my account.
+        </p>
+
+        <a
+          id="create"
+          href="./call-logs.html"
+          class="text-center bg-turquoise text-white rounded-full py-4 font-semibold text-[20px] leading-8"
+          >Create my account</a
+        >
+
+        <p class="text-center">
+          Have an account ?
+          <a href="./login.html" class="text-turquoise">Log in</a>
+        </p>
+      </div>
+    </form>
+  </body>
+</html>
