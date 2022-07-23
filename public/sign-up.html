@@ -16,6 +16,51 @@
     <title>Vista - Sign Up</title>
 
     <script>
+      var reader;
+      const onChange = e => {
+        if (e.target.files[0]) {
+          reader = new FileReader();
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      };
+
+      const storeUserDetails = e => {
+        e.preventDefault();
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const type = urlParams.get('type');
+
+        const payload = {
+          firstName: document.querySelector('#firstName').value,
+          lastName: document.querySelector('#lastName').value,
+          phone: document.querySelector('#phone').value.trim(),
+          username: document.querySelector('#username').value,
+          job: document.querySelector('#job').value || 'none',
+          password: document.querySelector('#password').value,
+          picture: reader.result || '',
+          type: type,
+        };
+        // implement code for upload to db here...
+
+        // ...then store in localstoarge
+        localStorage.firstName = payload.firstName;
+        localStorage.lastName = payload.lastName;
+        localStorage.phone = payload.phone;
+        localStorage.username = payload.username;
+        localStorage.job = payload.job;
+        localStorage.picture = payload.picture;
+        localStorage.type = type;
+
+        if (type === 'customer') {
+          window.location.pathname = './hire.html';
+        } else if (type === 'artisan') {
+          window.location.pathname = './client.html';
+        }
+      };
+    </script>
+
+    <script>
       const togglePassword = () => {
         const pwdInput = document.querySelector('#password');
         pwdInput.type = pwdInput.type === 'password' ? 'text' : 'password';
@@ -25,7 +70,6 @@
         // reset buttons' styles...
         const artisanIndicator = document.querySelector('#artisan-indicator');
         const customerIndicator = document.querySelector('#customer-indicator');
-        const createButton = document.querySelector('#create');
         const jobInput = document.querySelector('#job-field');
 
         artisanIndicator.disabled = false;
@@ -49,14 +93,10 @@
           search_params.set('type', 'customer');
           url.search = search_params.toString();
           window.location.href = url.toString();
-
-          createButton.setAttribute('href', './call-logs.html');
         } else if (e.target.id === 'artisan-indicator') {
           search_params.set('type', 'artisan');
           url.search = search_params.toString();
           window.location.href = url.toString();
-
-          createButton.setAttribute('href', './my-details.html');
         }
 
         // ...finally, hide or show job dropdown menu
@@ -73,7 +113,6 @@
         const artisanIndicator = document.querySelector('#artisan-indicator');
         const customerIndicator = document.querySelector('#customer-indicator');
         const jobInput = document.querySelector('#job-field');
-        const createButton = document.querySelector('#create');
 
         if (type === 'artisan') {
           customerIndicator.disabled = false;
@@ -86,8 +125,6 @@
 
           jobInput.classList.toggle('hidden');
           jobInput.classList.toggle('flex');
-
-          createButton.setAttribute('href', './my-details.html');
         } else if (type === 'customer') {
           artisanIndicator.disabled = false;
           artisanIndicator.style.color = '#939393';
@@ -96,8 +133,6 @@
           customerIndicator.disabled = true;
           customerIndicator.style.color = 'white';
           customerIndicator.style.background = '#0ce6f3';
-
-          createButton.setAttribute('href', './call-logs.html');
         }
       };
     </script>
@@ -129,25 +164,28 @@
       </div>
     </header>
 
-    <form class="placeholder:text-gray w-[519px] mx-auto flex flex-col gap-y-5">
+    <form
+      class="placeholder:text-gray w-[519px] mx-auto flex flex-col gap-y-5"
+      onsubmit="storeUserDetails(event)"
+    >
       <div class="field-group grid grid-rows-[1rem_4rem] grid-flow-col gap-x-3 gap-y-4">
-        <label class="block" for="first-name">First name</label>
+        <label class="block" for="firstName">First name</label>
         <input
           required
           type="text"
-          name="first-name"
-          id="first-name"
+          name="firstName"
+          id="firstName"
           autocapitalize="on"
           pattern=".{2,}"
           placeholder="James"
           class="block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
         />
-        <label class="block" for="last-name">Last name</label>
+        <label class="block" for="lastName">Last name</label>
         <input
           required
           type="text"
-          name="last-name"
-          id="last-name"
+          name="lastName"
+          id="lastName"
           autocapitalize="on"
           pattern=".{2,}"
           placeholder="White"
@@ -156,12 +194,12 @@
       </div>
 
       <div class="input-group flex flex-col gap-y-2">
-        <label class="block" for="phone-number">Phone number</label>
+        <label class="block" for="phone">Phone number</label>
         <input
           required
           type="tel"
-          name="phone-number"
-          id="phone-number"
+          name="phone"
+          id="phone"
           placeholder="+234 81012471290"
           class="block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
         />
@@ -169,12 +207,12 @@
 
       <div class="input-group flex gap-x-3">
         <div class="sub-input-group flex flex-col gap-y-2 w-full">
-          <label class="block" for="email">Email</label>
+          <label class="block" for="username">Email</label>
           <input
             required
             type="email"
-            name="email"
-            id="email"
+            name="username"
+            id="username"
             pattern="[^@]+@[^\.]+\..+"
             placeholder="Jameswhite@gmail.com"
             class="block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
@@ -183,14 +221,27 @@
 
         <div id="job-field" class="sub-input-group hidden flex-col gap-y-2 w-[43%]">
           <label class="block" for="job">Job</label>
-          <div
-            class="block text-[16px] leading-6 py-4 px-2 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
-          >
-            <select name="job" id="job" class="w-full outline-none">
-              <option value="Artisan">Artisan</option>
-            </select>
-          </div>
+          <input
+            type="text"
+            name="job"
+            id="job"
+            placeholder="Plumber"
+            class="block text-[16px] leading-6 py-4 px-3 font-poppins font-normal border-[1px] border-solid border-gray rounded-[10px] outline-none"
+          />
         </div>
+      </div>
+
+      <div class="input-group flex flex-col gap-y-2 w-full">
+        <label class="block" for="picture">Profile Picture</label>
+        <input
+          required
+          type="file"
+          accept="image/*"
+          name="picture"
+          id="picture"
+          onchange="onChange(event)"
+          class="block text-[16px] leading-6 py-4 font-poppins font-normal border-b-[1px] border-solid border-gray outline-none cursor-pointer"
+        />
       </div>
 
       <div class="input-group flex flex-col gap-y-2">
@@ -218,12 +269,12 @@
           my account.
         </p>
 
-        <a
+        <input
           id="create"
-          href="./call-logs.html"
-          class="text-center bg-turquoise text-white rounded-full py-4 font-semibold text-[20px] leading-8"
-          >Create my account</a
-        >
+          type="submit"
+          value="Create my account"
+          class="text-center bg-turquoise text-white rounded-full py-4 font-semibold text-[20px] leading-8 cursor-pointer"
+        />
 
         <p class="text-center">
           Have an account ?
