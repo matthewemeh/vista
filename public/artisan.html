@@ -13,6 +13,15 @@
     <!-- For production -->
     <link rel="stylesheet" href="dist.css" />
     <title>Vista - Artisan Details</title>
+
+    <script>
+      window.onload = () => {
+        // collect details set by hire.html in localstorage and set name, job and pay
+        document.querySelector('#name').innerText = localStorage.artisanName;
+        document.querySelector('#job').innerText = localStorage.artisanJob;
+        document.querySelector('#pay').innerText = localStorage.artisanPay;
+      };
+    </script>
   </head>
   <body class="artisan font-poppins text-black font-semibold text-[18px] leading-[27px] mt-8 mb-20">
     <header class="flex items-center justify-between mb-4 mx-[50px]">

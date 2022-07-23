@@ -13,6 +13,18 @@
     <!-- For production -->
     <link rel="stylesheet" href="dist.css" />
     <title>Vista - Hire Artisan</title>
+
+    <script>
+      const showArtisanDetails = e => {
+        const p_tags = e.target.getElementsByTagName('p');
+
+        localStorage.artisanName = p_tags[0].innerText;
+        localStorage.artisanJob = p_tags[1].innerText;
+        localStorage.artisanPay = p_tags[2].innerText;
+
+        window.location.pathname = './artisan.html';
+      };
+    </script>
   </head>
   <body class="hire font-poppins text-black font-semibold text-[18px] leading-[27px] mt-8 mb-20">
     <header class="flex items-center justify-between mb-4 mx-[50px]">
@@ -38,6 +50,7 @@
       >
         <div
           class="artisan bg-[url(./assets/images/artisan-1.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -53,6 +66,7 @@
 
         <div
           class="artisan bg-[url(./assets/images/artisan-2.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -68,6 +82,7 @@
 
         <div
           class="artisan bg-[url(./assets/images/artisan-3.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -83,6 +98,7 @@
 
         <div
           class="artisan bg-[url(./assets/images/artisan-4.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -98,6 +114,7 @@
 
         <div
           class="artisan bg-[url(./assets/images/artisan-5.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -127,6 +144,7 @@
       >
         <div
           class="artisan bg-[url(./assets/images/artisan-7.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -142,6 +160,7 @@
 
         <div
           class="artisan bg-[url(./assets/images/artisan-8.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -157,6 +176,7 @@
 
         <div
           class="artisan bg-[url(./assets/images/artisan-9.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -172,6 +192,7 @@
 
         <div
           class="artisan bg-[url(./assets/images/artisan-10.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
@@ -187,6 +208,7 @@
 
         <div
           class="artisan bg-[url(./assets/images/artisan-11.png)] bg-cover bg-top w-full h-full border-[1px] flex items-end rounded-lg"
+          onclick="showArtisanDetails(event)"
         >
           <div
             class="artisan-details bg-white rounded-b-lg flex flex-col gap-y-[2px] h-20 w-full font-medium text-[14px] leading-4 p-2 font-circular-std"
